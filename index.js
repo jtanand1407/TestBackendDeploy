@@ -4,6 +4,8 @@ const app = express();
 
 app.use(express.json());
 
+const PORT = process.env.PORT || 3000
+
 app.get("/", async (req, res) => {
   try {
     const db = await dbConnection();
@@ -52,6 +54,6 @@ app.delete("/", async (req, res) => {
   }
 });
 
-app.listen(3000, (req, res) => {
+app.listen(PORT, (req, res) => {
   console.log("Server is running on 3000");
 });
