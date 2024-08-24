@@ -1,10 +1,12 @@
 const { dbConnection } = require("./db");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3030;
 
 app.get("/", async (req, res) => {
   try {
@@ -34,7 +36,10 @@ app.put("/", async (req, res) => {
   try {
     const db = await dbConnection();
     const collection = db.collection("qaCollection");
-    const data = await collection.updateOne({'name': 'Niha'},{$set: req.body});
+    const data = await collection.updateOne(
+      { name: "Niha" },
+      { $set: req.body }
+    );
     res.json(data);
   } catch (error) {
     console.log(error);
@@ -54,6 +59,6 @@ app.delete("/", async (req, res) => {
   }
 });
 
-app.listen(PORT, (req, res) => {
+app.listen(3030, (req, res) => {
   console.log("Server is running on", PORT);
 });
