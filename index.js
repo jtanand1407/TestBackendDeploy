@@ -38,7 +38,7 @@ app.post("/cart", async (req, res) => {
     const db = await dbConnection();
     const collection = db.collection("qaCart");
     const result = await collection.insertOne(req.body);
-    res.send("Added Successfully!!!!");
+    res.json(req.body);
   } catch (error) {
     console.log(error);
     throw error;
