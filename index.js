@@ -1,4 +1,5 @@
 const { dbConnection } = require("./db");
+const { ObjectId } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -65,6 +66,20 @@ app.delete("/", async (req, res) => {
     const collection = db.collection("qaCollection");
     const data = await collection.deleteOne(req.body);
     res.json(data);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+app.delete("/cart/:id", async (req, res) => {
+  try {
+    const db = await dbConnection();
+    const collection = db.collection("qaCart");
+    const deleteId = req.params.id;
+    const item = await collection.findOne({'_id': new ObjectId(deleteId)});
+    const data = await collection.deleteOne(item);
+    res.send("Deleted Successfully!!!");
   } catch (error) {
     console.log(error);
     throw error;
