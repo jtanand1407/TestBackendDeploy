@@ -20,10 +20,22 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+app.get("/cart", async (req, res) => {
   try {
     const db = await dbConnection();
-    const collection = db.collection("qaCollection");
+    const collection = db.collection("qaCart");
+    const data = await collection.find().toArray();
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+});
+
+app.post("/cart", async (req, res) => {
+  try {
+    const db = await dbConnection();
+    const collection = db.collection("qaCart");
     const result = await collection.insertOne(req.body);
     res.send("Added Successfully!!!!");
   } catch (error) {
